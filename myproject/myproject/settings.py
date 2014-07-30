@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+gettext = lambda s: s
 """
 Django settings for myproject project.
 
@@ -38,6 +38,18 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #以下为后来添加，默认配置文件没有
+    'cms',
+    'mptt',
+    'menus',
+    'south',
+    'appmedia',
+    'cms.plugins.text',
+    'cms.plugins.picture',
+    'cms.plugins.link',
+    'cms.plugins.file',
+    'cms.plugins.snippet',
+    'cms.plugins.googlemap',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -47,11 +59,44 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #以下为后来添加，默认配置文件没有
+    'cms.middleware.page.CurrentPageMiddleware',
+    'cms.middleware.user.CurrentUserMiddleware',
+    'cms.middleware.toolbar.ToolbarMiddleware',
+    'cms.middleware.media.PlaceholderMediaMiddleware',
+)
+
+ #模板引擎处理器，后来添加的，默认配置文件没有
+ TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.request',
+    'django.core.context_processors.media',
+    'cms.context_processors.media',
 )
 
 ROOT_URLCONF = 'myproject.urls'
 
+# MEDIA路径，默认没有
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+ADMIN_MEDIA_PREFIX="/media/admin/"
+
+#添加模板路径，默认没有
+TEMPLATE_DIRS = (
+    # The docs say it should be absolute path: PROJECT_PATH is precisely one.
+    # Life is wonderful!
+    os.path.join(BASE_DIR, "templates")
+)
+
+添加CMS模板
+CMS_TEMPLATES = (
+    ('template_1.html', 'Template One'),
+    ('template_2.html', 'Template Two'),
+)
+
 WSGI_APPLICATION = 'myproject.wsgi.application'
+
 
 
 # Database
